@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/control.css">
+
+    <title>Arduino Controller</title>
+</head>
+
+<body>
+    <div class="nevbar">
+        <h4><i class="fal fa-microchip"></i> Arduino Controller</h4>
+        <i class="fal fa-unlink connection"></i>
+    </div>
+    <div class="controlpanel">
+        <div class="settings">
+            <div class="st-box">
+                <div class="st-btn" id="st-btn1">
+                    <i class="fal fa-lightbulb exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+                </div>
+                <div class="st-label">Red LED</div>
+            </div>
+            <div class="st-box">
+                <div class="st-btn" id="st-btn2">
+                    <i class="fal fa-lightbulb exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+                </div>
+                <div class="st-label">Blue LED</div>
+            </div>
+            <div class="st-box">
+                <div class="st-btn" id="st-btn3">
+                    <i class="fal fa-lightbulb exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+
+                </div>
+                <div class="st-label">Green LED</div>
+            </div>
+
+        </div>
+        <div class="settings">
+            <div class="st-box">
+                <div class="st-btn" id="st-btn4">
+                    <i class="fal fa-volume-up exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+                </div>
+                <div class="st-label">Buzzer</div>
+            </div>
+            <div class="st-box">
+                <div class="st-btn" id="st-btn5">
+                    <i class="fal fa-lights-holiday exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+                </div>
+                <div class="st-label">Light Show</div>
+            </div>
+            <div class="st-box">
+                <div class="st-btn" id="st-btn6">
+                    <i class="fal fa-bell exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+
+                </div>
+                <div class="st-label">Auto rotate</div>
+            </div>
+        </div>
+        <div class="range-box">
+
+            <input type="range" value="0" min="0" max="180" id="rs-range-line">
+            <div class="range-value">0</div>
+
+        </div>
+        <div class="settings">
+            <div class="st-box">
+                <div class="st-btn" id="st-btn7">
+                    <i class="fal fa-radar exis"></i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+                </div>
+                <div class="st-label">Move Servo</div>
+            </div>
+            <div class="st-box">
+                <div class="st-btn" id="st-btn8">
+                    <i class="fal exis distancedata">not found</i>
+                    <span class="intrim"><i class="fal fa-spinner-third"></i></span>
+                </div>
+                <div class="st-label">Distance</div>
+            </div>
+        </div>
+
+    </div>
+    <script src="static\fontawasome5.15-pro.js"></script>
+    <script>
+        let control_option = ["", "maintenance", "new_login", "new_register"];
+
+        let isDistance = true;
+
+        setInterval(() => {
+            if (isDistance) {
+                setTimeout(() => {
+                    $.get(`/sensor`, function (data) {
+                        if (data.status === 200) {
+                            document.querySelector(".connection").classList.remove("fa-unlink");
+                            document.querySelector(".connection").classList.add("fa-link");
+                            document.querySelector(".connection").style.color="#a3be8c";
+                            if (document.getElementById("rs-range-line").value != data.angel) {
+                                document.getElementById("rs-range-line").value = data.angel;
+                                showSliderValue();
+                            }
+                            document.querySelector(".distancedata").innerHTML = data.dist;
+                        }
+                        else{
+                            document.querySelector(".connection").classList.remove("fa-link");
+                            document.querySelector(".connection").classList.add("fa-unlink");
+                            document.querySelector(".connection").style.color="tomato";
+                        }
+
+                    }, "json").fail(function () {
+                        setTimeout(() => {
+                            document.querySelector(".connection").classList.remove("fa-link");
+                            document.querySelector(".connection").classList.add("fa-unlink");
+                            document.querySelector(".connection").style.color="tomato";
+                        }, 1000);
+                        isDistance = true;
+
+                    })
+                }, 0);
+            }
+            else {
+                console.log("distance closed");
+            }
+        }, 1000);
+
+        document.getElementById("st-btn1").addEventListener("click", (e) => {
+            document.querySelector("#st-btn1 .exis").style.display = "none";
+
+            manage_panel(1, "led1");
+        })
+        document.getElementById("st-btn2").addEventListener("click", (e) => {
+            document.querySelector("#st-btn2 .exis").style.display = "none";
+            manage_panel(2, "led2");
+        })
+        document.getElementById("st-btn3").addEventListener("click", (e) => {
+            document.querySelector("#st-btn3 .exis").style.display = "none";
+            manage_panel(3, "led3");
+        })
+
+        document.getElementById("st-btn4").addEventListener("click", (e) => {
+            document.querySelector("#st-btn4 .exis").style.display = "none";
+
+            manage_panel(4, "buzzer");
+        })
+        document.getElementById("st-btn5").addEventListener("click", (e) => {
+            document.querySelector("#st-btn5 .exis").style.display = "none";
+            manage_panel(5, "show");
+        })
+        document.getElementById("st-btn6").addEventListener("click", (e) => {
+            document.querySelector("#st-btn6 .exis").style.display = "none";
+            document.querySelector(".range-box").classList.toggle("dispnone");
+            manage_panel(6, "auto");
+        })
+        document.getElementById("st-btn7").addEventListener("click", (e) => {
+            document.querySelector("#st-btn7 .exis").style.display = "none";
+            let angel = document.getElementById("rs-range-line").value;
+            if (angel >= 0 && angel <= 180) {
+                manage_panel(7, "servo" + angel);
+            }
+
+        })
+
+        function manage_panel(id, command) {
+            index = id
+            if (index > 3) {
+                index = index - 3
+            }
+            document.querySelector("#st-btn" + id + " .intrim").style.display = "block";
+            isDistance = false;
+            // $.get("/togglesysvar/"+control_option[id], function (data) {
+            //     console.log(data.log);
+            //     if(data.status===200){
+            //         document.getElementById("st-btn"+id).classList.toggle("st-clicked")
+            //         document.querySelector("#st-btn"+id +" .intrim").style.display="none";
+            //         document.querySelector(`#st-btn${id} .exis`).style.display="block";
+            //     }
+            // }, "json");
+            setTimeout(() => {
+                $.get(`/runcommand?command=${command}`, function (data) {
+                    if (data.status === 200) {
+                        if (command.includes("servo") == false) {
+                            document.getElementById("st-btn" + id).classList.toggle("st-clicked")
+                        }
+
+                        document.querySelector("#st-btn" + id + " .intrim").style.display = "none";
+                        document.querySelector(`#st-btn${id} .exis`).style.display = "block";
+                    }
+                    else {
+                        setTimeout(() => {
+                            document.querySelector("#st-btn" + id + " .intrim").style.display = "none";
+                            document.querySelector(`#st-btn${id} .exis`).style.display = "block";
+                        }, 1000);
+                    }
+                    isDistance = true;
+                }, "json").fail(function () {
+                    setTimeout(() => {
+                        document.querySelector("#st-btn" + id + " .intrim").style.display = "none";
+                        document.querySelector(`#st-btn${id} .exis`).style.display = "block";
+                    }, 1000);
+                    isDistance = true;
+
+                })
+            }, 0);
+        }
+
+
+        $(function () {
+            var rangePercent = $('[type="range"]').val();
+            $('[type="range"]').on('input', function () {
+                rangePercent = $('[type="range"]').val();
+                $('.range-value').html(rangePercent);
+            });
+        });
+
+
+
+        function showSliderValue() {
+            var rangePercent = $('[type="range"]').val();
+            var percentage=rangePercent/180 * 100;
+            rangePercent = $('[type="range"]').val();
+            $('.range-value').html(rangePercent);
+            
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,298 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+:root {
+  --primary-bg-color: #3b4252;
+  --secondary-bg-color: #2e3440;
+  --card-bg-color: #4c566a;
+
+  --primary-text-color: #d8dee9;
+  --secondary-text-color: #e5e9f0;
+  --card-text-color: #eceff4;
+  --dimmed-text-color: #eceff4b2;
+  --dimmed-bg-color: #3b4252af;
+  color: #ffffff00;
+  --nord0: #2e3440;
+  --nord1: #3b4252;
+  --nord2: #434c5e;
+  --nord3: #4c566a;
+  --nord4: #d8dee9;
+  --nord5: #e5e9f0;
+  --nord6: #eceff4;
+  --nord7: #8fbcbb;
+  --nord8: #88c0d0;
+  --nord9: #81a1c1;
+  --nord10: #5e81ac;
+  --nord11: rgb(191, 97, 106);
+  --nord12: #d08770;
+  --nord13: #ebcb8b;
+  --nord14: #a3be8c;
+  --nord15: #b48ead;
+
+  --mob-nev: 60px;
+  --mob-brand-img: 30px;
+  --mob-nev-ul-marginleft: 0px;
+  --mob-nev-ul-margin: auto;
+  --mob-nev-ul-h3: none;
+  --mob-nev-ul-a-marginleft: 7px;
+  --mob-nev-ul-a-span: none;
+  --mob-nev-ul-i-marginright: 0px;
+  --mob-hrs: block;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins",sans-serif;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: var(--primary-bg-color);
+  height: 100vh;
+}
+
+.controlpanel {
+  width: 350px;
+  padding: 30px;
+  background: var(--card-bg-color);
+  color: var(--card-text-color);
+  border-radius: 15px;
+}
+.settings {
+  height: 110px;
+  width: 100%;
+  display: grid;
+  grid-auto-columns: 1fr 1fr 1fr;
+  grid-auto-flow: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.st-box {
+  height: auto;
+  width: 1fr;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.st-btn {
+  width: 100%;
+  height: 50px;
+  border: 3px var(--primary-bg-color) solid;
+  background-color: var(--dimmed-bg-color);
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+
+.st-clicked {
+  background-color: var(--nord9);
+  color: var(--nord0);
+  border-color: var(--nord9);
+}
+.st-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.intrim {
+  animation: rotation 2s infinite linear;
+  display: none;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+.actionbox {
+  padding: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: all 0.4s ease-in-out;
+}
+
+.toggle-action {
+  height: 100%;
+}
+
+.actionbox::-webkit-scrollbar {
+  width: 6px;
+}
+.actionbox::-webkit-scrollbar-thumb {
+  background-color: var(--card-bg-color);
+  border-radius: 40px;
+}
+.actionbox::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.actionbox h3 {
+  color: var(--card-text-color);
+  font-size: 22px;
+  font-weight: 500;
+  margin: 10px;
+}
+
+.actionbox ul {
+  margin-top: 20px;
+}
+
+.range-box{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.range-value{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  align-items: center;
+  background-color: var(--nord10);
+  color: var(--nord4);
+  font-size: 18px;
+  letter-spacing: 1px;
+  padding: 6px;
+  font-weight: 600;
+}
+
+html input[type=range] {
+  outline: 0;
+  border: 0;
+  border-radius: 500px;
+  width: 240px;
+  max-width: 100%;
+  margin: 24px 0 24px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  html input[type=range] {
+    overflow: hidden;
+    height: 40px;
+    -webkit-appearance: none;
+    background-color: rgba(221, 221, 221, 0.176);
+  }
+  html input[type=range]::-webkit-slider-runnable-track {
+    height: 40px;
+    -webkit-appearance: none;
+    color: #444;
+    -webkit-transition: box-shadow 0.2s ease-in-out;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  html input[type=range]::-webkit-slider-thumb {
+    width: 40px;
+    -webkit-appearance: none;
+    height: 40px;
+    cursor: ew-resize;
+    background: #fff;
+    box-shadow: -340px 0 0 320px var(--nord10), inset 0 0 0 40px var(--nord10);
+    border-radius: 50%;
+    -webkit-transition: box-shadow 0.2s ease-in-out;
+    transition: box-shadow 0.2s ease-in-out;
+    position: relative;
+  }
+  html input[type=range]:active::-webkit-slider-thumb {
+    background: #fff;
+    box-shadow: -340px 0 0 320px var(--nord10), inset 0 0 0 3px var(--nord10);
+  }
+}
+html input[type=range]::-moz-range-progress {
+  background-color: #43e5f7;
+}
+html input[type=range]::-moz-range-track {
+  background-color: #9a905d;
+}
+html input[type=range]::-ms-fill-lower {
+  background-color: #43e5f7;
+}
+html input[type=range]::-ms-fill-upper {
+  background-color: #9a905d;
+}
+
+#h4-container {
+  width: 400px;
+  max-width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+#h4-container #h4-subcontainer {
+  width: 100%;
+  position: relative;
+}
+#h4-container #h4-subcontainer h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  color: #fff !important;
+  font-size: 12px;
+  transform-origin: center -10px;
+  transform: translateX(-50%);
+  transition: margin-top 0.15s ease-in-out, opacity 0.15s ease-in-out;
+}
+#h4-container #h4-subcontainer h4 span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--nord10);
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+input:not(:active) + #h4-container h4 {
+  opacity: 0;
+  margin-top: -50px;
+  pointer-events: none;
+}
+
+.dispnone{
+  display: none;
+}
+
+.nevbar{
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--secondary-bg-color);
+  color: var(--secondary-text-color);
+  padding: 10px 20px;
+  width: calc(100vw - 20px);
+  left: 10px;
+  top: 10px;
+  border-radius:15px;
+}
+.nevbar h4 i{
+  padding-right: 15px;
+}
+.nevbar h4{
+  
+  letter-spacing: 1.5px;
+}
+
+.nevbar .connection{
+  font-size: 22px;
+}
