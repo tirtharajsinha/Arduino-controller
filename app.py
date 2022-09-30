@@ -39,6 +39,7 @@ def runcommand():
         send_command(thiscommand)
         return {"status": 200}
     except Exception as e:
+        print(e)
         return {"status": 400}
 
 

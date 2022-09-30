@@ -105,23 +105,29 @@
                             document.querySelector(".connection").classList.remove("fa-unlink");
                             document.querySelector(".connection").classList.add("fa-link");
                             document.querySelector(".connection").style.color="#a3be8c";
-                            if (document.getElementById("rs-range-line").value != data.angel) {
-                                document.getElementById("rs-range-line").value = data.angel;
-                                showSliderValue();
-                            }
+                            // if (document.getElementById("rs-range-line").value != data.angel) {
+                            //     document.getElementById("rs-range-line").value = data.angel;
+                            //     showSliderValue();
+                            // }
                             document.querySelector(".distancedata").innerHTML = data.dist;
+                            // console.log(data.dist);
                         }
                         else{
-                            document.querySelector(".connection").classList.remove("fa-link");
+                            if(isDistance){
+                                document.querySelector(".connection").classList.remove("fa-link");
                             document.querySelector(".connection").classList.add("fa-unlink");
                             document.querySelector(".connection").style.color="tomato";
+                            }
+                            
                         }
 
                     }, "json").fail(function () {
                         setTimeout(() => {
-                            document.querySelector(".connection").classList.remove("fa-link");
+                            if(isDistance){
+                                document.querySelector(".connection").classList.remove("fa-link");
                             document.querySelector(".connection").classList.add("fa-unlink");
                             document.querySelector(".connection").style.color="tomato";
+                            }
                         }, 1000);
                         isDistance = true;
 
