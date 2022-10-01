@@ -1,6 +1,8 @@
 # Arduino-controller
 A web based controller interface for arduino.
 
+<img src="static\controller.png" width="400px" height="auto" style="display:block;margin:auto;">
+
 ## Requirements
 - Arduino AVR board
 - Arduino IDE

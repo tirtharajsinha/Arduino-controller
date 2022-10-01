@@ -1,11 +1,13 @@
 import serial
 
-
-PORT = "COM5"
-BAUDRATE = 9600
-TIMEOUT = 1
-arduino = serial.Serial(port=PORT, baudrate=BAUDRATE)
-arduino.flush()
+try:
+    PORT = "COM5"
+    BAUDRATE = 9600
+    TIMEOUT = 1
+    arduino = serial.Serial(port=PORT, baudrate=BAUDRATE)
+    arduino.flush()
+except:
+    pass
 
 def send_command(command):
     
